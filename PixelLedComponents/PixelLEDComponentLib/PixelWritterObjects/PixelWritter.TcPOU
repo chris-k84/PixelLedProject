@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="PixelWritter" Id="{059a66e7-2117-4fdc-9a96-c27b3bb8a014}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PixelWritter EXTENDS FB_CyclicFB IMPLEMENTS ITF_PixelWritter
+VAR
+	CtrlOut AT %Q*: Control;
+	StatusIn AT %I*: Status;
+	ExtCtrlOut AT %Q*: ExtendedControl;
+	UpdateRTrig: R_TRIG;
+	UpdateFTrig: F_TRIG;
+	ClearPixels: BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="ClearPixelArrayCommand" Id="{da74ea2f-483d-49f6-a01a-d07fa5a3e740}">
+      <Declaration><![CDATA[METHOD ClearPixelArrayCommand : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT ClearPixels THEN
+	CtrlOut.PixelCommand.Command := 2;
+	CtrlOut.Execute := NOT CtrlOut.Execute;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CyclicLogic" Id="{411f79cb-7bfe-4944-9b09-24abdc0e156c}">
+      <Declaration><![CDATA[METHOD CyclicLogic : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.CyclicLogic();
+UpdateFTrig(CLK := StatusIn.UpdateAck);
+UpdateRTrig(CLK := StatusIn.UpdateAck);
+IF UpdateFTrig.Q OR UpdateRTrig.Q THEN
+	CtrlOut.Update := FALSE;
+	ExtCtrlOut.Update := FALSE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ForwardCommandToFrameBuffer" Id="{401ed8b0-49c7-4044-ad85-4e6fc03f46a0}">
+      <Declaration><![CDATA[METHOD ForwardCommandToFrameBuffer : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT ForwardCommandToFrameBuffer THEN
+	CtrlOut.Execute := NOT CtrlOut.Execute;
+	CtrlOut.Update := TRUE;
+	ForwardCommandToFrameBuffer := TRUE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ForwardExtCommandToFrame" Id="{838d00e5-96fb-4eea-a1a4-d84527e6f813}">
+      <Declaration><![CDATA[METHOD ForwardExtCommandToFrame : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT ForwardExtCommandToFrame THEN
+	ExtCtrlOut.Execute := NOT ExtCtrlOut.Execute;
+	ExtCtrlOut.Update := TRUE;
+	ExtCtrlOut.Write := FALSE;
+	ForwardExtCommandToFrame := TRUE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SendCommandToPixelBuffer" Id="{d6b8d03d-e674-46aa-9859-7a3d82607b1a}">
+      <Declaration><![CDATA[METHOD SendCommandToPixelBuffer : BOOL
+VAR_INPUT
+	NewCommand: Command;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT StatusIn.Busy THEN
+	SendCommandToPixelBuffer := TRUE;
+	CtrlOut.PixelCommand := NewCommand;
+	CtrlOut.Execute := NOT CtrlOut.Execute;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SendExtCommand" Id="{bded14ba-ba3e-4bb4-ba01-208d5142a337}">
+      <Declaration><![CDATA[METHOD SendExtCommand : BOOL
+VAR_INPUT
+	NewCommand: ExtendedCommand;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT StatusIn.Busy THEN
+	SendExtCommand := TRUE;
+	ExtCtrlOut.Command := NewCommand;
+	ExtCtrlOut.Write := TRUE;
+	ExtCtrlOut.Execute := NOT ExtCtrlOut.Execute;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="PixelWritter">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="PixelWritter.ClearPixelArrayCommand">
+      <LineId Id="3" Count="3" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="PixelWritter.CyclicLogic">
+      <LineId Id="9" Count="0" />
+      <LineId Id="3" Count="4" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="PixelWritter.ForwardCommandToFrameBuffer">
+      <LineId Id="3" Count="3" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="PixelWritter.ForwardExtCommandToFrame">
+      <LineId Id="3" Count="4" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="PixelWritter.SendCommandToPixelBuffer">
+      <LineId Id="3" Count="3" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="PixelWritter.SendExtCommand">
+      <LineId Id="3" Count="4" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <Itf Name="ITF_Video" Id="{6492a835-3890-43d3-9cc0-7dd322e52bec}">
+    <Declaration><![CDATA[INTERFACE ITF_Video
+]]></Declaration>
+    <Method Name="GetNextFrame" Id="{081aa06c-a44f-41b9-abf6-07c6e57d8e1f}">
+      <Declaration><![CDATA[METHOD GetNextFrame : ARRAY[0..255] OF UDINT
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

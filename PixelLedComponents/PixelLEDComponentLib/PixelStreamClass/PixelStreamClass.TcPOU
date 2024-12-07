@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="PixelStreamClass" Id="{52003b82-8258-4495-b62a-bb1a21c09db0}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PixelStreamClass EXTENDS FB_CyclicFB
+VAR
+	_PixelWriter: ITF_PixelWritter;
+	_Video: ITF_Video;
+	State: INT;
+	Play: BOOL;
+	currentFrame: ARRAY[0..255] OF UDINT;
+	NewCommand: ExtendedCommand;
+	FrameTimeDelay: TON := (PT := TIME#100ms);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="CyclicLogic" Id="{8483b856-488d-48c2-948e-9f25ec90c2f7}">
+      <Declaration><![CDATA[METHOD CyclicLogic : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.CyclicLogic();
+
+IF _PixelWriter <> 0 THEN
+	_PixelWriter.CyclicLogic();
+END_IF
+
+CASE State OF
+	0:
+		IF Play THEN
+			State := 1;
+		END_IF
+	1:
+	    currentFrame :=	_Video.GetNextFrame();
+		State := 2;
+	2:
+		CASE NewCommand.Index OF 
+			0,1,4,5,8,9,12,13,16,17,20,21,24,25,28,29:
+				NewCommand.Segment[0] := currentFrame[NewCommand.Index * 8 + 0];
+				NewCommand.Segment[1] := currentFrame[NewCommand.Index * 8 + 1];
+				NewCommand.Segment[2] := currentFrame[NewCommand.Index * 8 + 2];
+				NewCommand.Segment[3] := currentFrame[NewCommand.Index * 8 + 3];
+				NewCommand.Segment[4] := currentFrame[NewCommand.Index * 8 + 4];
+				NewCommand.Segment[5] := currentFrame[NewCommand.Index * 8 + 5];
+				NewCommand.Segment[6] := currentFrame[NewCommand.Index * 8 + 6];
+				NewCommand.Segment[7] := currentFrame[NewCommand.Index * 8 + 7];
+			2,6,10,14,18,22,26,30:
+				NewCommand.Segment[7] := currentFrame[(NewCommand.Index + 1) * 8 + 0];
+				NewCommand.Segment[6] := currentFrame[(NewCommand.Index + 1) * 8 + 1];
+				NewCommand.Segment[5] := currentFrame[(NewCommand.Index + 1) * 8 + 2];
+				NewCommand.Segment[4] := currentFrame[(NewCommand.Index + 1) * 8 + 3];
+				NewCommand.Segment[3] := currentFrame[(NewCommand.Index + 1) * 8 + 4];
+				NewCommand.Segment[2] := currentFrame[(NewCommand.Index + 1) * 8 + 5];
+				NewCommand.Segment[1] := currentFrame[(NewCommand.Index + 1) * 8 + 6];
+				NewCommand.Segment[0] := currentFrame[(NewCommand.Index + 1) * 8 + 7];
+			3,7,11,15,19,23,27,31:
+				NewCommand.Segment[7] := currentFrame[(NewCommand.Index - 1) * 8 + 0];
+				NewCommand.Segment[6] := currentFrame[(NewCommand.Index - 1) * 8 + 1];
+				NewCommand.Segment[5] := currentFrame[(NewCommand.Index - 1) * 8 + 2];
+				NewCommand.Segment[4] := currentFrame[(NewCommand.Index - 1) * 8 + 3];
+				NewCommand.Segment[3] := currentFrame[(NewCommand.Index - 1) * 8 + 4];
+				NewCommand.Segment[2] := currentFrame[(NewCommand.Index - 1) * 8 + 5];
+				NewCommand.Segment[1] := currentFrame[(NewCommand.Index - 1) * 8 + 6];
+				NewCommand.Segment[0] := currentFrame[(NewCommand.Index - 1) * 8 + 7];
+		END_CASE
+		
+		State := 3;
+	3:
+		IF _PixelWriter.SendExtCommand(NewCommand := NewCommand) THEN
+			NewCommand.Index := NewCommand.Index + 1;
+			IF NewCommand.Index = 32 THEN
+				State := 4;
+				NewCommand.Index := 0;
+			ELSE
+				State := 2;
+			END_IF
+		END_IF
+		
+	4:
+		IF _PixelWriter.ForwardExtCommandToFrame() THEN
+			FrameTimeDelay.IN := TRUE;
+			State := 5;
+		END_IF
+	
+	5:
+		IF FrameTimeDelay.Q THEN
+			FrameTimeDelay.IN := FALSE;
+			State := 0;
+		END_IF
+END_CASE
+
+FrameTimeDelay();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PlayVideo" Id="{d54ec6bb-a443-4ceb-a30a-7d3b0fd71f1d}">
+      <Declaration><![CDATA[METHOD PlayVideo : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Play := PlayVideo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RegisterAVideo" Id="{e51d5207-075f-45eb-90a1-b48bf08225e3}">
+      <Declaration><![CDATA[METHOD RegisterAVideo : BOOL
+VAR_INPUT
+	MyVideo: ITF_Video;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _Video = 0 THEN
+	_Video := MyVideo;
+	RegisterAVideo := true;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RegisterMyPixelArray" Id="{6a2cd104-bcf0-430b-9cf0-752a82df05a1}">
+      <Declaration><![CDATA[METHOD RegisterMyPixelArray : BOOL
+VAR_INPUT
+	MYPixelWritter: ITF_PixelWritter;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _PixelWriter = 0 THEN
+	_PixelWriter := MYPixelWritter;
+	RegisterMyPixelArray := TRUE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="StopVideo" Id="{7615fb28-a976-484a-ba91-7eadb24622de}">
+      <Declaration><![CDATA[METHOD StopVideo : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Play := FALSE;
+StopVideo := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="PixelStreamClass">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="PixelStreamClass.CyclicLogic">
+      <LineId Id="72" Count="1" />
+      <LineId Id="3" Count="67" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="PixelStreamClass.PlayVideo">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="PixelStreamClass.RegisterAVideo">
+      <LineId Id="3" Count="2" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="PixelStreamClass.RegisterMyPixelArray">
+      <LineId Id="3" Count="2" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="PixelStreamClass.StopVideo">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

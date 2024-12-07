@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <Itf Name="ITF_PixelWritter" Id="{c677e114-1507-469b-8d59-eeb78b431049}">
+    <Declaration><![CDATA[INTERFACE ITF_PixelWritter
+]]></Declaration>
+    <Method Name="ClearPixelArrayCommand" Id="{dc4727ef-f7ca-4fb3-afe2-4d5de7a39dcd}">
+      <Declaration><![CDATA[METHOD ClearPixelArrayCommand : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="CyclicLogic" Id="{28a971d5-5c1f-42b4-a48c-b18be5431358}">
+      <Declaration><![CDATA[METHOD CyclicLogic : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="ForwardCommandToFrameBuffer" Id="{30685db9-3a1b-440f-9b5e-1818fc352a0b}">
+      <Declaration><![CDATA[METHOD ForwardCommandToFrameBuffer : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="ForwardExtCommandToFrame" Id="{54334c68-23d9-4ee6-8f2d-80748facd24b}">
+      <Declaration><![CDATA[METHOD ForwardExtCommandToFrame : BOOL
+]]></Declaration>
+    </Method>
+    <Method Name="SendCommandToPixelBuffer" Id="{dfc29403-f450-410f-b163-d79ecec3e37f}">
+      <Declaration><![CDATA[METHOD SendCommandToPixelBuffer : BOOL
+VAR_INPUT
+	NewCommand: Command;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SendExtCommand" Id="{b1560dad-7075-4b7d-acb3-8b1876a355a4}">
+      <Declaration><![CDATA[METHOD SendExtCommand : BOOL
+VAR_INPUT
+	NewCommand: ExtendedCommand;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

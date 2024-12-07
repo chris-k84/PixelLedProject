@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="ExtendedControl" Id="{584a4b02-f82d-4c98-93cf-335045b97d92}">
+    <Declaration><![CDATA[TYPE ExtendedControl :
+STRUCT
+	Execute: BOOL;
+	Send: BOOL;
+	Update: BOOL;
+	Write: BOOL;
+	Command: ExtendedCommand;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

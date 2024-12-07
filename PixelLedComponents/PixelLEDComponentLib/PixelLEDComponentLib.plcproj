@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <FileVersion>1.0.0.0</FileVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{57557b16-525b-403e-98ad-6a1274f86f6b}</ProjectGuid>
+    <SubObjectsSortedByName>True</SubObjectsSortedByName>
+    <DownloadApplicationInfo>true</DownloadApplicationInfo>
+    <WriteProductVersion>true</WriteProductVersion>
+    <GenerateTpy>false</GenerateTpy>
+    <Name>PixelLEDComponentLib</Name>
+    <ProgramVersion>3.1.4024.0</ProgramVersion>
+    <Application>{80ff9a9d-69f8-47c1-b41a-228d4215df83}</Application>
+    <TypeSystem>{fec776b4-6a42-47c4-b3bd-6bbf28833ee5}</TypeSystem>
+    <Implicit_Task_Info>{94e613bf-8da8-4939-995d-384a10dccbe5}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{38b2f04d-92b5-4024-b71f-914e2a108cc3}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{dfc7a2aa-56c3-4df2-b049-9e01a6a37ec6}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{393fca41-36ed-44ba-9dd8-759e6e007adc}</LibraryReferences>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="PixelColourObjects\ColourOptions.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PixelColourObjects\ColourPallette.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PixelStreamClass\PixelStreamClass.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PixelVideoObjects\ITF_Video.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PixelVideoObjects\PixelVideoClass.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PixelWritterObjects\Colour.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PixelWritterObjects\Command.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PixelWritterObjects\Control.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PixelWritterObjects\ExtendedCommand.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PixelWritterObjects\ExtendedControl.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PixelWritterObjects\ITF_PixelWritter.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PixelWritterObjects\PixelWritter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PixelWritterObjects\Status.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PlcTask.TcTTO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\MAIN.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DUTs" />
+    <Folder Include="GVLs" />
+    <Folder Include="PixelColourObjects" />
+    <Folder Include="PixelStreamClass" />
+    <Folder Include="PixelVideoObjects" />
+    <Folder Include="PixelWritterObjects" />
+    <Folder Include="VISUs" />
+    <Folder Include="POUs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PlaceholderReference Include="SPT Base Types">
+      <DefaultResolution>SPT Base Types, * (Beckhoff Automation LLC)</DefaultResolution>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_Standard">
+      <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_Standard</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_System">
+      <DefaultResolution>Tc2_System, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_System</Namespace>
+      <Parameters>
+        <Parameter ListName="PARAM" xmlns="">
+          <Key>TABLE_UPPER_BOUND</Key>
+          <Value>15</Value>
+        </Parameter>
+        <Parameter ListName="PARAM" xmlns="">
+          <Key>STRING_LENGTH_EXP</Key>
+          <Value>255</Value>
+        </Parameter>
+        <Parameter ListName="PARAM" xmlns="">
+          <Key>STRING_LENGTH_ADDRESS</Key>
+          <Value>20</Value>
+        </Parameter>
+        <Parameter ListName="PARAM" xmlns="">
+          <Key>STRING_LENGTH_COMMENT</Key>
+          <Value>255</Value>
+        </Parameter>
+        <Parameter ListName="PARAM" xmlns="">
+          <Key>STRING_LENGTH_OUTSTRING</Key>
+          <Value>255</Value>
+        </Parameter>
+        <Parameter ListName="PARAM" xmlns="">
+          <Key>TABLE_SHOW_VALID_ITEMS</Key>
+          <Value>FALSE</Value>
+        </Parameter>
+      </Parameters>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc3_Module">
+      <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc3_Module</Namespace>
+    </PlaceholderReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SubObject Include="ColourPallette.GetColourComponents" />
+    <SubObject Include="ITF_PixelWritter.ClearPixelArrayCommand" />
+    <SubObject Include="ITF_PixelWritter.CyclicLogic" />
+    <SubObject Include="ITF_PixelWritter.ForwardCommandToFrameBuffer" />
+    <SubObject Include="ITF_PixelWritter.ForwardExtCommandToFrame" />
+    <SubObject Include="ITF_PixelWritter.SendCommandToPixelBuffer" />
+    <SubObject Include="ITF_PixelWritter.SendExtCommand" />
+    <SubObject Include="ITF_Video.GetNextFrame" />
+    <SubObject Include="PixelStreamClass.CyclicLogic" />
+    <SubObject Include="PixelStreamClass.PlayVideo" />
+    <SubObject Include="PixelStreamClass.RegisterAVideo" />
+    <SubObject Include="PixelStreamClass.RegisterMyPixelArray" />
+    <SubObject Include="PixelStreamClass.StopVideo" />
+    <SubObject Include="PixelVideoClass.GetNextFrame" />
+    <SubObject Include="PixelWritter.ClearPixelArrayCommand" />
+    <SubObject Include="PixelWritter.CyclicLogic" />
+    <SubObject Include="PixelWritter.ForwardCommandToFrameBuffer" />
+    <SubObject Include="PixelWritter.ForwardExtCommandToFrame" />
+    <SubObject Include="PixelWritter.SendCommandToPixelBuffer" />
+    <SubObject Include="PixelWritter.SendExtCommand" />
+  </ItemGroup>
+  <ProjectExtensions>
+    <PlcProjectOptions>
+      <XmlArchive>
+        <Data>
+          <o xml:space="preserve" t="OptionKey">
+      <v n="Name">"&lt;ProjectRoot&gt;"</v>
+      <d n="SubKeys" t="Hashtable" />
+      <d n="Values" t="Hashtable" />
+    </o>
+        </Data>
+        <TypeList>
+          <Type n="Hashtable">System.Collections.Hashtable</Type>
+          <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+          <Type n="String">System.String</Type>
+        </TypeList>
+      </XmlArchive>
+    </PlcProjectOptions>
+  </ProjectExtensions>
+</Project>

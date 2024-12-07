@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="Control" Id="{2044032a-37cc-4e9a-a599-15d7f6285cba}">
+    <Declaration><![CDATA[TYPE Control :
+STRUCT
+	Execute: BOOL;
+	Send: BOOL;
+	Update: BOOL;
+	PixelCommand: Command;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

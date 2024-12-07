@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="ColourOptions" Id="{7526e212-bdd0-4783-8806-7440b70e1035}">
+    <Declaration><![CDATA[{attribute 'qualified_only' := ''}
+{attribute 'strict' := ''}
+TYPE ColourOptions :
+(
+	DARK_RED := 0,
+	CRIMSON := 3,
+	RED := 4,
+	TOMATO := 5,
+	SALMON := 10,
+	DARK_ORANGE := 13,
+	ORANGE := 14,
+	GOLD := 15,
+	GOLDEN_ROD := 17,
+	DARK_KHAKI := 19,
+	OLIVE := 21,
+	YELLOW := 22,
+	LAWN_GREEN := 26,
+	GREEN := 30,
+	FOREST_GREEN := 31,
+	LIME := 32,
+	LIGHT_SEA_GREEN := 42,
+	TEAL := 44,
+	AQUA := 46,
+	TURQUOISE := 50,
+	STEEL_BLUE := 56,
+	DEEP_SKY_BLUE := 58,
+	NAVY := 64,
+	BLUE := 67,
+	BLUE_VIOLET := 69,
+	MEDIUM_PURPLE := 74,
+	PURPLE := 79,
+	MAGENTA := 83,
+	DEEP_PINK := 87,
+	HOT_PINK := 90,
+	LEMON_CHIFFON := 97,
+	SADDLE_BROWN := 100,
+	SANDY_BROWN := 104,
+	MOCCASIN := 108,
+	MINT_CREAM := 117,
+	SLATE_GREY := 118,
+	LAVENDER := 121,
+	BLACK := 129,
+	GREY := 131,
+	SILVER := 133,
+	WHITE := 137
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

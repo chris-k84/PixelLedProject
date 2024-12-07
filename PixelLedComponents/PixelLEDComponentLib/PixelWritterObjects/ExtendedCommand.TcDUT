@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="ExtendedCommand" Id="{4f8cecb8-b208-4809-816e-e63ce0a2d03b}">
+    <Declaration><![CDATA[TYPE ExtendedCommand :
+STRUCT
+	Index: USINT;
+	Segment: ARRAY[0..7] OF UDINT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

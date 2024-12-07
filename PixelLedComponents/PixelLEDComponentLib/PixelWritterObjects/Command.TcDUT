@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="Command" Id="{efc2b908-6518-4c4e-acae-89da83009e2c}">
+    <Declaration><![CDATA[TYPE Command :
+STRUCT
+	Command: USINT;
+	Index: UINT;
+	Length: UINT;
+	Parameter: UINT;
+	Colours: Colour;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

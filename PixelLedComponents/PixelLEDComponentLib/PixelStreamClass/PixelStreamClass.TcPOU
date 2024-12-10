@@ -21,10 +21,6 @@ END_VAR
       <Implementation>
         <ST><![CDATA[SUPER^.CyclicLogic();
 
-IF _PixelWriter <> 0 THEN
-	_PixelWriter.CyclicLogic();
-END_IF
-
 CASE State OF
 	0:
 		IF Play THEN
@@ -137,8 +133,8 @@ StopVideo := TRUE;]]></ST>
       <LineId Id="2" Count="0" />
     </LineIds>
     <LineIds Name="PixelStreamClass.CyclicLogic">
-      <LineId Id="72" Count="1" />
-      <LineId Id="3" Count="67" />
+      <LineId Id="72" Count="0" />
+      <LineId Id="6" Count="64" />
       <LineId Id="2" Count="0" />
     </LineIds>
     <LineIds Name="PixelStreamClass.PlayVideo">

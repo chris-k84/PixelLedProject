@@ -65,13 +65,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DUTs" />
-    <Folder Include="GVLs" />
     <Folder Include="PixelColourObjects" />
     <Folder Include="PixelStreamClass" />
     <Folder Include="PixelVideoObjects" />
     <Folder Include="PixelWritterObjects" />
-    <Folder Include="VISUs" />
     <Folder Include="POUs" />
   </ItemGroup>
   <ItemGroup>

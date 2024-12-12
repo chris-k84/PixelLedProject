@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
   <POU Name="PixelWritter" Id="{059a66e7-2117-4fdc-9a96-c27b3bb8a014}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK PixelWritter EXTENDS FB_CyclicFB IMPLEMENTS ITF_PixelWritter
+    <Declaration><![CDATA[FUNCTION_BLOCK PixelWritter EXTENDS FB_ComponentBase IMPLEMENTS ITF_PixelWritter
 VAR
 	CtrlOut AT %Q*: Control;
 	StatusIn AT %I*: Status;
@@ -26,7 +26,7 @@ END_IF
       </Implementation>
     </Method>
     <Method Name="CyclicLogic" Id="{411f79cb-7bfe-4944-9b09-24abdc0e156c}">
-      <Declaration><![CDATA[METHOD CyclicLogic : BOOL
+      <Declaration><![CDATA[METHOD CyclicLogic
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[SUPER^.CyclicLogic();

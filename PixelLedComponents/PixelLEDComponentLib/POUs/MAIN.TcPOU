@@ -1,13 +1,50 @@
-<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1">
-  <POU Name="MAIN" Id="{6eb66dc9-29a9-405c-89e3-8405fe538648}">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <POU Name="MAIN" Id="{6eb66dc9-29a9-405c-89e3-8405fe538648}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
+	EL2574Control : PixelWritter;
+	MyVideo : PixelVideoClass;
+	FilmControl : PixelStreamClass;
+	MyCommand : Command;
+	MyColourPallette : ColourPallette;
+	MyColour : ColourOptions;
+	init: BOOL;
+	SendManualCommand : BOOL;
+	SendManualUpdate : BOOL;
+	SendClearCommand : BOOL;
 END_VAR
-]]>
-    </Declaration>
+]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[IF NOT init THEN
+	FilmControl.RegisterAVideo(MyVideo := MyVideo);
+	FilmControl.RegisterMyPixelArray(MYPixelWritter := EL2574Control);
+	init := TRUE;
+END_IF
+FilmControl.CyclicLogic();
+EL2574Control.CyclicLogic();
+
+
+MyCommand.Colours := MyColourPallette.GetColourComponents(Colour := MyColour);
+IF SendManualCommand THEN
+	EL2574Control.SendCommandToPixelBuffer(NewCommand := MyCommand);
+	SendManualCommand := FALSE;
+END_IF
+IF SendManualUpdate THEN
+	EL2574Control.ForwardCommandToFrameBuffer();
+	SendManualUpdate := FALSE;
+END_IF
+IF SendClearCommand THEN
+	EL2574Control.ClearPixelArrayCommand();
+	SendClearCommand := FALSE;
+END_IF]]></ST>
     </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="9" Count="4" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="17" Count="13" />
+      <LineId Id="16" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>

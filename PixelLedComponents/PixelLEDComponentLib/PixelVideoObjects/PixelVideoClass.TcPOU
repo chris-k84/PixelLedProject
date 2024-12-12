@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
   <POU Name="PixelVideoClass" Id="{cc90f7c9-29e6-479a-b84c-aa032a257c67}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK PixelVideoClass EXTENDS FB_CyclicFB IMPLEMENTS ITF_Video
+    <Declaration><![CDATA[FUNCTION_BLOCK PixelVideoClass EXTENDS FB_ComponentBase IMPLEMENTS ITF_Video
 VAR
 	CurrentFrame: INT := 0;
 	TotalFramesInFilm: INT;
@@ -13,6 +13,14 @@ END_VAR
       <ST><![CDATA[
 ]]></ST>
     </Implementation>
+    <Method Name="CyclicLogic" Id="{164753b6-c6c1-4a87-a225-439975b8a354}">
+      <Declaration><![CDATA[METHOD PUBLIC  CyclicLogic
+VAR_INPUT
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.CyclicLogic();]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetNextFrame" Id="{26e244c8-5196-4630-95f7-ff67685fbedb}">
       <Declaration><![CDATA[METHOD GetNextFrame : ARRAY[0..255] OF UDINT
 ]]></Declaration>
@@ -32,6 +40,9 @@ END_IF
     <LineIds Name="PixelVideoClass">
       <LineId Id="10" Count="0" />
       <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="PixelVideoClass.CyclicLogic">
+      <LineId Id="4" Count="0" />
     </LineIds>
     <LineIds Name="PixelVideoClass.GetNextFrame">
       <LineId Id="3" Count="8" />

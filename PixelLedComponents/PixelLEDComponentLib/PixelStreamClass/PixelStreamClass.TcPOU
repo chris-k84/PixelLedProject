@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
   <POU Name="PixelStreamClass" Id="{52003b82-8258-4495-b62a-bb1a21c09db0}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK PixelStreamClass EXTENDS FB_CyclicFB
+    <Declaration><![CDATA[FUNCTION_BLOCK PixelStreamClass EXTENDS FB_ComponentBase
 VAR
 	_PixelWriter: ITF_PixelWritter;
 	_Video: ITF_Video;
@@ -16,7 +16,7 @@ END_VAR
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Method Name="CyclicLogic" Id="{8483b856-488d-48c2-948e-9f25ec90c2f7}">
-      <Declaration><![CDATA[METHOD CyclicLogic : BOOL
+      <Declaration><![CDATA[METHOD CyclicLogic
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[SUPER^.CyclicLogic();

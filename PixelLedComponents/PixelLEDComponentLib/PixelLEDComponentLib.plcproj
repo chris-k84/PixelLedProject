@@ -117,7 +117,6 @@
   <ItemGroup>
     <SubObject Include="ColourPallette.GetColourComponents" />
     <SubObject Include="ITF_PixelWritter.ClearPixelArrayCommand" />
-    <SubObject Include="ITF_PixelWritter.CyclicLogic" />
     <SubObject Include="ITF_PixelWritter.ForwardCommandToFrameBuffer" />
     <SubObject Include="ITF_PixelWritter.ForwardExtCommandToFrame" />
     <SubObject Include="ITF_PixelWritter.SendCommandToPixelBuffer" />
@@ -135,6 +134,11 @@
     <SubObject Include="PixelWritter.ForwardExtCommandToFrame" />
     <SubObject Include="PixelWritter.SendCommandToPixelBuffer" />
     <SubObject Include="PixelWritter.SendExtCommand" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PixelLEDComponentLib.tmc">
+      <SubType>Content</SubType>
+    </None>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>

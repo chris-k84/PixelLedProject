@@ -7,10 +7,6 @@
       <Declaration><![CDATA[METHOD ClearPixelArrayCommand : BOOL
 ]]></Declaration>
     </Method>
-    <Method Name="CyclicLogic" Id="{28a971d5-5c1f-42b4-a48c-b18be5431358}">
-      <Declaration><![CDATA[METHOD CyclicLogic : BOOL
-]]></Declaration>
-    </Method>
     <Method Name="ForwardCommandToFrameBuffer" Id="{30685db9-3a1b-440f-9b5e-1818fc352a0b}">
       <Declaration><![CDATA[METHOD ForwardCommandToFrameBuffer : BOOL
 ]]></Declaration>

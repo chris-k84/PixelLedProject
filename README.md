@@ -91,6 +91,8 @@ Playing with the module there are a number of things to consider, in terms of ho
 
 As such I decided to create a generic handler for the EL2574, once I started I then extended this to allow for easy streaming of pixel array images to the terminal.
 
+This was a chance to have a bit of a play with some OOP principals, comments on this are welcome as I am always learning.
+
 <!-- Use the `BLANK_README.md` to get started. -->
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -117,34 +119,19 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+You will need the SPT libraries to use the project, you can find the installation guide for the libraries [here](https://beckhoff-usa-community.github.io/SPT-Libraries/Getting_Started/setup.html).
+
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+To run the project you will need to follow the steps below
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/github_username/repo_name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-5. Change git remote url to avoid accidental pushes to base project
-   ```sh
-   git remote set-url origin github_username/repo_name
-   git remote -v # confirm the changes
-   ```
+1. Download the Pixel LED code, either fork or download the zip
+2. Open the Solution 
+3. Run a build with the target device type selected (x86, x64, ARM etc)
+4. Create a hardware project
+5. Import the build TMC from the pixel project
+6. Link up the required interface for your application (Command or Extended)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -164,15 +151,12 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [x] Add Changelog
-- [x] Add back to top links
+- [ ] sort license file
 - [ ] Add Additional Templates w/ Examples
 - [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
+
+See the [open issues](https://github.com/chris-k84/PixelLedProject/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -194,8 +178,8 @@ Don't forget to give the project a star! Thanks again!
 
 ### Top contributors:
 
-<a href="https://github.com/othneildrew/Best-README-Template/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=othneildrew/Best-README-Template" alt="contrib.rocks image" />
+<a href="https://github.com/chris-k84/PixelLedProject/graphs/contributors">
+  <img src="Images\contributers.PNG" />
 </a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -214,9 +198,9 @@ Distributed under the Unlicense License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Chris Knight - [LinkedIn](https://www.linkedin.com/in/twincat-chris-knight/) - c.knight@beckhoff.com
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Project Link: [Pixel LED Project](https://github.com/chris-k84/PixelLedProject)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -227,14 +211,11 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 
 Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
 
+* [Readme ]
 * [Choose an Open Source License](https://choosealicense.com)
 * [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
-* [Malven's Grid Cheatsheet](https://grid.malven.co/)
-* [Img Shields](https://shields.io)
 * [GitHub Pages](https://pages.github.com)
-* [Font Awesome](https://fontawesome.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -257,6 +238,6 @@ Use this space to list resources you find helpful and would like to give credit 
 
 <!-- [product-screenshot]: images/screenshot.png -->
 [SPT.js]: Images\spt.PNG
-[SPT-url]: https://beckhoff-usa-community.github.io/SPT-Libraries/Getting_Started/setup.html
+[SPT-url]: https://beckhoff-usa-community.github.io/SPT-Libraries/Getting_Started/SPT%20Framework.html
 [TwinCAT.js]: Images\twincat.PNG
 [TwinCAT-url]: https://www.beckhoff.com/en-gb/products/automation/twincat/

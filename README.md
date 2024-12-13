@@ -1,14 +1,5 @@
 # <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a id="readme-top"></a>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
-
-
 
 <!-- PROJECT SHIELDS -->
 <!--
@@ -22,9 +13,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![Unlicense License][license-shield]][license-url]
-<!-- [![LinkedIn][linkedin-shield]][linkedin-url] -->
-
+<!--[![Unlicense License][license-shield]][license-url] -->
 
 
 <!-- PROJECT LOGO -->
@@ -103,8 +92,9 @@ This was a chance to have a bit of a play with some OOP principals, comments on 
 
 This project was built with the SPT framework, using TwinCAT 4024.62. This should easily carry over into 4026 at a future date.
 
-* [![SPT][SPT.js]][SPT-url]
-* [![TwinCAT][TwinCAT.js]][TwinCAT-url]
+[![SPT][SPT.js]][SPT-url]
+
+[![TwinCAT][TwinCAT.js]][TwinCAT-url]
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -211,7 +201,7 @@ Project Link: [Pixel LED Project](https://github.com/chris-k84/PixelLedProject)
 
 Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
 
-* [Readme ]
+* [GitHub Readme template](https://github.com/othneildrew/Best-README-Template)
 * [Choose an Open Source License](https://choosealicense.com)
 * [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
 * [GitHub Pages](https://pages.github.com)
@@ -231,11 +221,9 @@ Use this space to list resources you find helpful and would like to give credit 
 [stars-url]: https://github.com/chris-k84/PixelLedProject/stargazers
 [issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
 [issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
+<!-- [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-<!-- [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew-->
-
+-->
 <!-- [product-screenshot]: images/screenshot.png -->
 [SPT.js]: Images\spt.PNG
 [SPT-url]: https://beckhoff-usa-community.github.io/SPT-Libraries/Getting_Started/SPT%20Framework.html

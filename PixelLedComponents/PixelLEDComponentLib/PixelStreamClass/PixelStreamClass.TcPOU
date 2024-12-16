@@ -9,7 +9,10 @@ VAR
 	Play: BOOL;
 	currentFrame: ARRAY[0..255] OF UDINT;
 	NewCommand: ExtendedCommand;
-	FrameTimeDelay: TON := (PT := TIME#100ms);
+	FrameTimeDelay: TON := (PT := TIME#100MS);
+	_IndexOffset : USINT;
+	SegmentCount: INT;
+	_frameSize : INT := 16;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -28,57 +31,72 @@ CASE State OF
 		END_IF
 	1:
 	    currentFrame :=	_Video.GetNextFrame();
+		NewCommand.Index := 0 + _IndexOffset;
 		State := 2;
 	2:
-		CASE NewCommand.Index OF 
+		CASE SegmentCount OF 
 			0,1,4,5,8,9,12,13,16,17,20,21,24,25,28,29:
-				NewCommand.Segment[0] := currentFrame[NewCommand.Index * 8 + 0];
-				NewCommand.Segment[1] := currentFrame[NewCommand.Index * 8 + 1];
-				NewCommand.Segment[2] := currentFrame[NewCommand.Index * 8 + 2];
-				NewCommand.Segment[3] := currentFrame[NewCommand.Index * 8 + 3];
-				NewCommand.Segment[4] := currentFrame[NewCommand.Index * 8 + 4];
-				NewCommand.Segment[5] := currentFrame[NewCommand.Index * 8 + 5];
-				NewCommand.Segment[6] := currentFrame[NewCommand.Index * 8 + 6];
-				NewCommand.Segment[7] := currentFrame[NewCommand.Index * 8 + 7];
-			2,6,10,14,18,22,26,30:
-				NewCommand.Segment[7] := currentFrame[(NewCommand.Index + 1) * 8 + 0];
-				NewCommand.Segment[6] := currentFrame[(NewCommand.Index + 1) * 8 + 1];
-				NewCommand.Segment[5] := currentFrame[(NewCommand.Index + 1) * 8 + 2];
-				NewCommand.Segment[4] := currentFrame[(NewCommand.Index + 1) * 8 + 3];
-				NewCommand.Segment[3] := currentFrame[(NewCommand.Index + 1) * 8 + 4];
-				NewCommand.Segment[2] := currentFrame[(NewCommand.Index + 1) * 8 + 5];
-				NewCommand.Segment[1] := currentFrame[(NewCommand.Index + 1) * 8 + 6];
-				NewCommand.Segment[0] := currentFrame[(NewCommand.Index + 1) * 8 + 7];
-			3,7,11,15,19,23,27,31:
-				NewCommand.Segment[7] := currentFrame[(NewCommand.Index - 1) * 8 + 0];
-				NewCommand.Segment[6] := currentFrame[(NewCommand.Index - 1) * 8 + 1];
-				NewCommand.Segment[5] := currentFrame[(NewCommand.Index - 1) * 8 + 2];
-				NewCommand.Segment[4] := currentFrame[(NewCommand.Index - 1) * 8 + 3];
-				NewCommand.Segment[3] := currentFrame[(NewCommand.Index - 1) * 8 + 4];
-				NewCommand.Segment[2] := currentFrame[(NewCommand.Index - 1) * 8 + 5];
-				NewCommand.Segment[1] := currentFrame[(NewCommand.Index - 1) * 8 + 6];
-				NewCommand.Segment[0] := currentFrame[(NewCommand.Index - 1) * 8 + 7];
+				NewCommand.Segment[0] := currentFrame[SegmentCount* 8 + 0];
+				NewCommand.Segment[1] := currentFrame[SegmentCount* 8 + 1];
+				NewCommand.Segment[2] := currentFrame[SegmentCount* 8 + 2];
+				NewCommand.Segment[3] := currentFrame[SegmentCount* 8 + 3];
+				NewCommand.Segment[4] := currentFrame[SegmentCount* 8 + 4];
+				NewCommand.Segment[5] := currentFrame[SegmentCount* 8 + 5];
+				NewCommand.Segment[6] := currentFrame[SegmentCount* 8 + 6];
+				NewCommand.Segment[7] := currentFrame[SegmentCount* 8 + 7];
+			2,6,10,14,18,22,26,30:                    
+				NewCommand.Segment[7] := currentFrame[(SegmentCount + 1) * 8 + 0];
+				NewCommand.Segment[6] := currentFrame[(SegmentCount + 1) * 8 + 1];
+				NewCommand.Segment[5] := currentFrame[(SegmentCount + 1) * 8 + 2];
+				NewCommand.Segment[4] := currentFrame[(SegmentCount + 1) * 8 + 3];
+				NewCommand.Segment[3] := currentFrame[(SegmentCount + 1) * 8 + 4];
+				NewCommand.Segment[2] := currentFrame[(SegmentCount + 1) * 8 + 5];
+				NewCommand.Segment[1] := currentFrame[(SegmentCount + 1) * 8 + 6];
+				NewCommand.Segment[0] := currentFrame[(SegmentCount + 1) * 8 + 7];
+			3,7,11,15,19,23,27,31:                    
+				NewCommand.Segment[7] := currentFrame[(SegmentCount - 1) * 8 + 0];
+				NewCommand.Segment[6] := currentFrame[(SegmentCount - 1) * 8 + 1];
+				NewCommand.Segment[5] := currentFrame[(SegmentCount - 1) * 8 + 2];
+				NewCommand.Segment[4] := currentFrame[(SegmentCount - 1) * 8 + 3];
+				NewCommand.Segment[3] := currentFrame[(SegmentCount - 1) * 8 + 4];
+				NewCommand.Segment[2] := currentFrame[(SegmentCount - 1) * 8 + 5];
+				NewCommand.Segment[1] := currentFrame[(SegmentCount - 1) * 8 + 6];
+				NewCommand.Segment[0] := currentFrame[(SegmentCount - 1) * 8 + 7];
 		END_CASE
 		
 		State := 3;
 	3:
 		IF _PixelWriter.SendExtCommand(NewCommand := NewCommand) THEN
 			NewCommand.Index := NewCommand.Index + 1;
-			IF NewCommand.Index = 32 THEN
+			SegmentCount := SegmentCount + 1;
+			IF SegmentCount = 32 THEN
+				SegmentCount := 0;
 				State := 4;
-				NewCommand.Index := 0;
 			ELSE
 				State := 2;
 			END_IF
 		END_IF
 		
 	4:
-		IF _PixelWriter.ForwardExtCommandToFrame() THEN
-			FrameTimeDelay.IN := TRUE;
+		IF _frameSize = 32 THEN
+			_IndexOffset := _IndexOffset + 32;
+			IF _IndexOffset = 128 THEN
+				_IndexOffset := 0;
+				State := 5;
+			ELSE
+				State := 1;
+			END_IF
+		ELSE
 			State := 5;
 		END_IF
-	
 	5:
+		IF _PixelWriter.ForwardExtCommandToFrame() THEN
+			//FrameTimeDelay.IN := TRUE;
+			//State := 6;
+			State := 0;
+		END_IF
+	
+	6:
 		IF FrameTimeDelay.Q THEN
 			FrameTimeDelay.IN := FALSE;
 			State := 0;
@@ -88,6 +106,28 @@ END_CASE
 FrameTimeDelay();]]></ST>
       </Implementation>
     </Method>
+    <Property Name="IndexOffset" Id="{d0c28ba8-da67-4137-9cf1-f77c6b9c0106}">
+      <Declaration><![CDATA[PROPERTY IndexOffset : UsINT]]></Declaration>
+      <Get Name="Get" Id="{06962150-40b1-4117-a4ae-062e12ec785d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IndexOffset := _IndexOffset;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{5f72f415-0afa-4cfd-9e67-d2cdfe035009}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IF IndexOffset = 32 OR IndexOffset = 64 OR IndexOffset = 96 OR IndexOffset = 128 OR IndexOffset = 160 OR IndexOffset = 192 THEN
+	_IndexOffset := IndexOffset;
+END_IF
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Method Name="PlayVideo" Id="{d54ec6bb-a443-4ceb-a30a-7d3b0fd71f1d}">
       <Declaration><![CDATA[METHOD PlayVideo : BOOL
 ]]></Declaration>
@@ -134,7 +174,32 @@ StopVideo := TRUE;]]></ST>
     </LineIds>
     <LineIds Name="PixelStreamClass.CyclicLogic">
       <LineId Id="72" Count="0" />
-      <LineId Id="6" Count="64" />
+      <LineId Id="6" Count="3" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="11" Count="2" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="14" Count="35" />
+      <LineId Id="75" Count="0" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="76" Count="0" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="53" Count="5" />
+      <LineId Id="86" Count="3" />
+      <LineId Id="95" Count="2" />
+      <LineId Id="90" Count="0" />
+      <LineId Id="93" Count="1" />
+      <LineId Id="85" Count="0" />
+      <LineId Id="91" Count="0" />
+      <LineId Id="59" Count="2" />
+      <LineId Id="98" Count="0" />
+      <LineId Id="62" Count="8" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="PixelStreamClass.IndexOffset.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="PixelStreamClass.IndexOffset.Set">
+      <LineId Id="5" Count="2" />
       <LineId Id="2" Count="0" />
     </LineIds>
     <LineIds Name="PixelStreamClass.PlayVideo">

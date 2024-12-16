@@ -1,0 +1,29 @@
+<TcModuleRefactorInfos RefactorCnt="3">
+  <TcModuleRefactorInfo RefactorCnt="1" DateTime="2024-12-16T11:41:11">
+    <Renames>
+      <RenameTypeItem>
+        <Type>PixelStreamClass</Type>
+        <From>Segment</From>
+        <To>SegmentCount</To>
+      </RenameTypeItem>
+    </Renames>
+  </TcModuleRefactorInfo>
+  <TcModuleRefactorInfo RefactorCnt="2" DateTime="2024-12-16T12:21:10">
+    <Renames>
+      <RenameTypeItem>
+        <Type>PixelStreamClass</Type>
+        <From>currentFrame</From>
+        <To>currentFrame</To>
+      </RenameTypeItem>
+    </Renames>
+  </TcModuleRefactorInfo>
+  <TcModuleRefactorInfo RefactorCnt="3" DateTime="2024-12-16T14:28:15">
+    <Renames>
+      <RenameTypeItem>
+        <Type>PixelVideoClass</Type>
+        <From>ThisVideo</From>
+        <To>FramesToStream</To>
+      </RenameTypeItem>
+    </Renames>
+  </TcModuleRefactorInfo>
+</TcModuleRefactorInfos>
